@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Design tokens (sampled from the mockups: V4 template + hero.png)
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Colour */
+  --color-ink: #000000; /* page background (pure black) */
+  --color-gold: #f4d392; /* accent: pills, buttons, icon circles */
+  --color-gold-deep: #e5b85c; /* deeper gold, hover states */
+  --color-charcoal: #1a1a1a; /* text on gold */
+  --color-panel: #e5e5e5; /* light grey cards/panels */
+  --color-panel-dark: #1a1a1a; /* dark cards on black */
+
+  /* Typography */
+  --font-display: var(--font-bbh-bartle), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-bastliga), ui-serif, cursive;
+  --font-body: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii */
+  --radius-card: 28px;
+  --radius-pill: 9999px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+:root {
+  --nav-height: 48px;
+  --content-max: 1400px;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* anchors must not hide under the fixed navbar */
+  scroll-padding-top: 120px;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: #ffffff;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-charcoal);
+}
+
+/* Visible keyboard focus everywhere (accessibility rule) */
+a:focus-visible,
+button:focus-visible,
+[role="slider"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---- Hero type scale -------------------------------------------------
+ * The mockup only exists at 1920px. Below xl the heading keeps the same
+ * two-line lockup but scales so that "THE SCHOOL" always fits the content
+ * width (verified down to 360px). From xl up it matches the mockup exactly
+ * (1920px → heading 77px, kicker 66px, i.e. 4.01vw / 3.44vw).
+ */
+.hero-display {
+  font-size: clamp(24px, calc(2.7vw + 16.8px), 52px);
+}
+
+.hero-kicker {
+  font-size: clamp(20px, calc(2.88vw + 10.8px), 48px);
+}
+
+@media (min-width: 1280px) {
+  .hero-display {
+    font-size: clamp(51px, 4.01vw, 77px);
+  }
+
+  .hero-kicker {
+    font-size: clamp(44px, 3.44vw, 66px);
+  }
+}
+
+/* ---- Course section ("What to expect") -------------------------------
+ * Heading: gold display lockup (mockup 1920px → 33px / 584px wide) with the
+ * white Bastliga script word overlapping its top-left, shifted left of the
+ * content edge exactly like the mockup.
+ */
+.course-display {
+  font-size: clamp(24px, 1.72vw, 33px);
+  line-height: 1.24;
+}
+
+.course-script {
+  font-size: clamp(40px, 4vw, 77px);
+  line-height: 0.72;
+  margin-left: clamp(-48px, -2.5vw, 0px);
+}
+
+/* Horizontally scrollable card row: native scroll + snap, no visible
+ * scrollbar, first card flush with the content container's left edge and the
+ * row bleeding to the viewport's right edge so the last card is cut off.
+ * Percentages (not vw) keep the alignment correct when a scrollbar is shown. */
+.course-scroller {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-left: max(20px, calc((100% - 1440px) / 2 + 20px));
+  padding-right: max(20px, calc((100% - 1440px) / 2 + 20px));
+  scroll-padding-left: max(20px, calc((100% - 1440px) / 2 + 20px));
+}
+
+.course-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.course-scroller li {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-scroller {
+    scroll-snap-type: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Hero paused-thumbnail colour spotlight
+ * Two identical stacked layers; the top (full colour) one is revealed
+ * only inside a soft circle driven by --spot-x / --spot-y / --spot-r.
+ * ------------------------------------------------------------------ */
+.hero-spot {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  --spot-r: 0px;
+  -webkit-mask-image: radial-gradient(
+    circle var(--spot-r) at var(--spot-x) var(--spot-y),
+    #000 0,
+    #000 calc(var(--spot-r) - 20px),
+    transparent var(--spot-r)
+  );
+  mask-image: radial-gradient(
+    circle var(--spot-r) at var(--spot-x) var(--spot-y),
+    #000 0,
+    #000 calc(var(--spot-r) - 20px),
+    transparent var(--spot-r)
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* ---- FAQ section ("Know more") ---------------------------------------
+ * Panel geometry from "Website sections./Sixth section.png" at 1920: the panel
+ * is 1623px wide (the site's 1400px content column + 111.5px of padding each
+ * side) with a 40px radius; inside it the question card takes a 238px column,
+ * the accordion a 1034px column, and 120px separates them.
+ */
+.faq-panel {
+  border-radius: clamp(24px, 2.08vw, 40px);
+}
+
+/* Gold section heading: BBH Bartle 33px (cap height 24px — the same size every
+ * section heading in the design uses), baseline distance 40px. The mockup's line
+ * widths (FAQ 389/651, reviews 358/766 at 1920) need 0.02em of tracking: the font
+ * alone renders 385/640. */
+.section-display {
+  font-size: clamp(24px, 1.72vw, 33px);
+  line-height: clamp(30px, 2.083vw, 40px);
+  letter-spacing: 0.02em;
+}
+
+/* White script word hanging over a heading's top-left: Bastliga One 80px at
+ * 1920 (ink 188–190px wide, 107px tall), shifted 76px left of the heading's
+ * left edge so its swash crosses the gold heading's top-left corner — the
+ * mockups' ink overlap is 9px (FAQ) / 10px (reviews). */
+.section-script {
+  font-size: clamp(40px, 4.167vw, 80px);
+  line-height: 0.72;
+  margin-left: clamp(-76.2px, -3.97vw, 0px);
+}
+
+/* Footer lockup — a smaller, grey version of the same script/heading pair:
+ * "Get our" in Bastliga One 45px (#8a8a8a, the grey sampled from the V4
+ * template's footer, whose ink hangs 21px left of the column) above "FREE
+ * SERVICE" in BBH Bartle 30.5px black (ink 449px = the column's full width,
+ * so it must not wrap). */
+.footer-script {
+  font-size: clamp(30px, 2.55vw, 49px);
+  line-height: 0.72;
+  margin-left: clamp(-30px, -1.56vw, 0px);
+}
+
+.footer-display {
+  font-size: clamp(20px, 1.59vw, 30.5px);
+  line-height: clamp(30px, 2.083vw, 40px);
+  letter-spacing: 0.02em;
+}
+
+/* The design's footer heading is 449px — exactly the column width — so it only
+ * fits on one line from the tablet breakpoint up; below that it wraps freely. */
+@media (min-width: 768px) {
+  .footer-display {
+    white-space: nowrap;
+  }
+}
+
+/* ---- Reviews section ("Our former") ----------------------------------
+ * The second gold line carries a notch that points at the active avatar: the
+ * two line segments are cut around a clamp-sized V whose x offset rides in
+ * --notch (set from the live avatar geometry).
+ */
+.reviews-notch {
+  --notch-w: clamp(36px, 2.71vw, 52px);
+}
+
+/* Swap-in animation for tabbed content (reviews quote, About tabs). */
+@keyframes fadeSwap {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fade-swap {
+  animation: fadeSwap 420ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-swap {
+    animation: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .faq-cols {
+    display: grid;
+    grid-template-columns: clamp(180px, 12.4vw, 238px) minmax(0, 1034px);
+    column-gap: clamp(0px, 6.25vw, 120px);
+  }
+
+  /* The heading lines up with the accordion's column, not with the panel's left
+   * edge: panel padding + card column + gap. */
+  .faq-inset {
+    padding-left: calc(
+      clamp(20px, 5.81vw, 111.5px) + clamp(180px, 12.4vw, 238px) + clamp(0px, 6.25vw, 120px)
+    );
+  }
+}
