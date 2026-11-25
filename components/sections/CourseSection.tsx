@@ -8,13 +8,11 @@ import CourseCardRow from "@/components/CourseCardRow";
  *   [script "What" + gold heading]        [white "Get Started" pill + gold arrow]
  *   [horizontally scrollable row of white cards — the course modules]
  *
- * NOTE ON THE HERO OVERLAP: in the full-page mockup this card row sits below
- * the heading, ~526px under the hero's fold, and the grey boxes drawn at the
- * bottom of hero.png are a placeholder for this same row inside the hero frame.
- * A negative margin cannot put the row at the hero's bottom edge without
- * dragging the heading block (and the tagline/controls there) over the hero, so
- * the section flows normally. Flip the two blocks below if the "peeking"
- * arrangement is preferred instead.
+ * NOTE ON THE HERO OVERLAP: the five grey boxes drawn at the bottom of
+ * hero.png are NOT these course cards — they are the video strip that now
+ * owns that row (#videos, components/sections/VideoStrip.tsx). This section
+ * follows the strip in normal flow and overlaps nothing, so the grey row
+ * exists exactly once on the page.
  */
 export default function CourseSection() {
   return (

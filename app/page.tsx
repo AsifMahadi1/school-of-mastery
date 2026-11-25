@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import VideoStrip from "@/components/sections/VideoStrip";
 import CourseSection from "@/components/sections/CourseSection";
 import DetailsSection from "@/components/sections/DetailsSection";
 import WatchSection from "@/components/sections/WatchSection";
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <VideoStrip />
         <CourseSection />
         <DetailsSection />
         <WatchSection />

@@ -11,6 +11,7 @@
   --color-charcoal: #1a1a1a; /* text on gold */
   --color-panel: #e5e5e5; /* light grey cards/panels */
   --color-panel-dark: #1a1a1a; /* dark cards on black */
+  --color-placeholder: #cccccc; /* video-card placeholder (sampled from the mockup) */
 
   /* Typography */
   --font-display: var(--font-bbh-bartle), ui-sans-serif, system-ui, sans-serif;
@@ -132,6 +133,87 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .course-scroller {
     scroll-snap-type: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Video strip (auto-scrolling YouTube row under the hero, #videos)
+ * Geometry from the mockup at 1920: five 16:9 cards (335x188), 22px gaps,
+ * the first card flush with the 1440px content column's left edge (260px)
+ * and the row clipped by the viewport's right edge so the fifth card is cut
+ * off. Only the track is animated (transform, linear, infinite) — the
+ * viewport clips, so the page never gets a horizontal scrollbar.
+ * ------------------------------------------------------------------ */
+.video-strip-viewport {
+  /* the same left edge as the hero's content column */
+  margin-left: max(20px, calc((100% - 1440px) / 2 + 20px));
+  overflow: hidden;
+  /* vertical page scrolling stays native; horizontal drags belong to the strip */
+  touch-action: pan-y;
+}
+
+.video-strip-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Runs only once the set width is measured, so the loop distance is exact. */
+.video-strip-track[data-run="true"] {
+  animation: video-strip-scroll var(--strip-duration, 40s) linear infinite;
+}
+
+/* One full set per loop = the seam is invisible. */
+@keyframes video-strip-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-1 * var(--strip-set-width, 0px)), 0, 0);
+  }
+}
+
+.video-strip-set {
+  flex: none;
+}
+
+/* hover, keyboard focus inside the strip, touch/drag, off-screen, modal open */
+.video-strip:hover .video-strip-track,
+.video-strip:focus-within .video-strip-track,
+.video-strip[data-paused="true"] .video-strip-track {
+  animation-play-state: paused;
+}
+
+/* prefers-reduced-motion: no marquee — a normal, swipeable scroll-snap row. */
+@media (prefers-reduced-motion: reduce) {
+  /* same specificity as the [data-run] rule above, which sets the animation */
+  .video-strip-track,
+  .video-strip-track[data-run="true"] {
+    animation: none;
+    will-change: auto;
+  }
+
+  /* the duplicate sets exist only to make the loop seamless */
+  .video-strip-set[data-clone="true"] {
+    display: none;
+  }
+
+  .video-strip-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: auto;
+    scrollbar-width: none;
+  }
+
+  .video-strip-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .video-strip-set > li {
+    scroll-snap-align: start;
   }
 }
 
