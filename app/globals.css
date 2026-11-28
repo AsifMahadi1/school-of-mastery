@@ -277,7 +277,13 @@ button:focus-visible,
 /* ------------------------------------------------------------------ *
  * Hero paused-thumbnail colour spotlight
  * Two identical stacked layers; the top (full colour) one is revealed
- * only inside a soft circle driven by --spot-x / --spot-y / --spot-r.
+ * only inside a circle driven by --spot-x / --spot-y / --spot-r.
+ * The circle's rim is a soft fade, not a hard line: the mask stays fully
+ * opaque out to 45% of the radius and then ramps to transparent at the rim
+ * (percentage stops, so the feather scales with the radius while the circle
+ * grows and shrinks). At the 170px design radius that is a ~96px gradient —
+ * the same dissolve-at-the-edge feel as the video strip's two ends. Boss asked
+ * for the rim to be softened; widen/narrow the 45% stop to tune it.
  * ------------------------------------------------------------------ */
 .hero-spot {
   --spot-x: 50%;
@@ -285,15 +291,15 @@ button:focus-visible,
   --spot-r: 0px;
   -webkit-mask-image: radial-gradient(
     circle var(--spot-r) at var(--spot-x) var(--spot-y),
-    #000 0,
-    #000 calc(var(--spot-r) - 20px),
-    transparent var(--spot-r)
+    #000 0%,
+    #000 45%,
+    transparent 100%
   );
   mask-image: radial-gradient(
     circle var(--spot-r) at var(--spot-x) var(--spot-y),
-    #000 0,
-    #000 calc(var(--spot-r) - 20px),
-    transparent var(--spot-r)
+    #000 0%,
+    #000 45%,
+    transparent 100%
   );
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
