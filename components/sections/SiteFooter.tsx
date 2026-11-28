@@ -51,7 +51,10 @@ export default function SiteFooter() {
       className="relative -mt-[clamp(40px,4.17vw,80px)] bg-panel pt-[clamp(60px,7.42vw,142.5px)] pb-[clamp(24px,2.5vw,48px)] text-ink"
     >
       <div className="mx-auto w-full max-w-[1440px] px-5">
-        <div className="flex flex-col gap-[clamp(28px,2.5vw,48px)] md:flex-row md:items-start md:gap-0">
+        <div
+          data-reveal
+          className="flex flex-col gap-[clamp(28px,2.5vw,48px)] md:flex-row md:items-start md:gap-0"
+        >
           {/* 1 — Free service */}
           <div className="md:w-[32.1%]">
             <h2 className="font-display footer-display text-ink uppercase">

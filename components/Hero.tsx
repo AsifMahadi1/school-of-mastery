@@ -369,15 +369,24 @@ export default function Hero() {
         <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-0">
           {/* Heading + tagline pill (the pill matches the heading width) */}
           <div className="w-fit">
-            <p className="font-body hero-kicker mb-[clamp(4px,0.63vw,12px)] leading-[1.15] font-light text-white">
+            <p
+              data-reveal
+              className="font-body hero-kicker mb-[clamp(4px,0.63vw,12px)] leading-[1.15] font-light text-white"
+            >
               Welcome to
             </p>
-            <h1 className="font-display hero-display leading-[1.15] text-white uppercase">
+            <h1
+              data-reveal
+              className="font-display hero-display [--reveal-delay:90ms] leading-[1.15] text-white uppercase"
+            >
               THE SCHOOL
               <br />
               OF MASTERY
             </h1>
-            <div className="mt-[clamp(4px,0.42vw,8px)] flex w-full min-h-[clamp(46px,3.07vw,59px)] items-center justify-center gap-[clamp(10px,1.35vw,26px)] rounded-full bg-gold px-4 py-2 lg:h-[clamp(46px,3.07vw,59px)] lg:py-0">
+            <div
+              data-reveal
+              className="mt-[clamp(4px,0.42vw,8px)] flex w-full min-h-[clamp(46px,3.07vw,59px)] items-center justify-center gap-[clamp(10px,1.35vw,26px)] rounded-full bg-gold px-4 py-2 [--reveal-delay:180ms] lg:h-[clamp(46px,3.07vw,59px)] lg:py-0"
+            >
               <span className="font-body text-center text-[clamp(15px,1.82vw,35px)] leading-tight font-medium text-charcoal">
                 {siteConfig.tagline}
               </span>
@@ -394,7 +403,10 @@ export default function Hero() {
           {/* Video controls — same row as the pill on desktop, below it on mobile.
               `.hero-controls` keeps them clear of the floating call/WhatsApp
               buttons between lg and 1640px (see globals.css). */}
-          <div className="hero-controls flex items-center gap-[clamp(10px,1.3vw,25px)] lg:mb-[14px]">
+          <div
+            data-reveal
+            className="hero-controls flex items-center gap-[clamp(10px,1.3vw,25px)] [--reveal-delay:260ms] lg:mb-[14px]"
+          >
             <button
               type="button"
               onClick={toggleMute}

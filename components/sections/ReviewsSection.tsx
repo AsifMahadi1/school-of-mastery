@@ -50,6 +50,7 @@ export default function ReviewsSection() {
         <div className="mx-auto w-full max-w-[1281px]">
           <h2
             id="reviews-heading"
+            data-reveal
             className="font-display section-display pl-[clamp(0px,6.04vw,116px)] text-gold uppercase"
           >
             <span

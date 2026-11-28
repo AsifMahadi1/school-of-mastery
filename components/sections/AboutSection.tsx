@@ -30,6 +30,7 @@ export default function AboutSection() {
       <div className="mx-auto w-full max-w-[1440px] px-5">
         <h2
           id="about-heading"
+          data-reveal
           className="font-display section-display text-gold uppercase md:pl-[42.4%]"
         >
           <span
@@ -43,9 +44,15 @@ export default function AboutSection() {
           &amp; MY JOURNEY
         </h2>
 
-        <div className="relative mt-[clamp(24px,2.14vw,41px)] rounded-[clamp(24px,2.08vw,40px)] bg-panel px-5 pt-[clamp(20px,2.24vw,43px)] pb-[clamp(60px,7.76vw,149px)] md:pr-[8.2%] md:pl-[42.4%]">
+        <div
+          data-reveal
+          className="relative mt-[clamp(24px,2.14vw,41px)] rounded-[clamp(24px,2.08vw,40px)] bg-panel px-5 pt-[clamp(20px,2.24vw,43px)] pb-[clamp(60px,7.76vw,149px)] md:pr-[8.2%] md:pl-[42.4%]"
+        >
           {/* Instructor photo: stands on the card's bottom, head over the top edge. */}
-          <div className="mx-auto mb-[clamp(20px,2vw,38px)] w-[72%] max-w-[360px] md:absolute md:bottom-0 md:-left-[3.36%] md:mb-0 md:w-[43.5%] md:max-w-none">
+          <div
+            data-reveal="photo"
+            className="mx-auto mb-[clamp(20px,2vw,38px)] w-[72%] max-w-[360px] [--reveal-delay:140ms] md:absolute md:bottom-0 md:-left-[3.36%] md:mb-0 md:w-[43.5%] md:max-w-none"
+          >
             <Image
               src="/images/about-me.png"
               alt="Black-and-white portrait of the course instructor, arms crossed"

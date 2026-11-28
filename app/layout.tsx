@@ -42,7 +42,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${bbhBartle.variable} ${bastligaOne.variable} ${jost.variable} h-full`}
     >
-      <body className="min-h-full bg-black text-white antialiased">{children}</body>
+      <body className="min-h-full bg-black text-white antialiased">
+        {/* Scroll-reveal targets are hidden by CSS until JS reveals them; with
+            JS off that would hide the whole page, so force them visible. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }

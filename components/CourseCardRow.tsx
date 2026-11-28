@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { courseCards } from "@/lib/courseCards";
 
 /**
@@ -72,6 +72,7 @@ export default function CourseCardRow() {
       role="region"
       aria-label="What to expect from the course — scrollable list of cards"
       tabIndex={0}
+      data-reveal-group
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
@@ -80,9 +81,11 @@ export default function CourseCardRow() {
       className={`course-scroller ${dragging ? "cursor-grabbing select-none" : "cursor-grab"}`}
     >
       <ul className="flex items-stretch gap-[clamp(20px,1.2vw,23px)]">
-        {courseCards.map((card) => (
+        {courseCards.map((card, index) => (
           <li
             key={card.number}
+            data-reveal
+            style={{ "--reveal-delay": `${index * 70}ms` } as CSSProperties}
             className="w-[clamp(280px,17.45vw,335px)] shrink-0 snap-start"
           >
             <article className="flex h-[clamp(300px,17.7vw,340px)] flex-col justify-between rounded-[clamp(16px,1.04vw,20px)] bg-white px-[clamp(24px,1.875vw,36px)] pt-[clamp(20px,1.35vw,26px)] pb-[clamp(34px,2.3vw,44px)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-14px_rgba(0,0,0,0.65)]">

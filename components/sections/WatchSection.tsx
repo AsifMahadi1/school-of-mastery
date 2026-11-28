@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 
 import { watchRows, type WatchVideo } from "@/lib/watchRows";
 
@@ -50,7 +51,10 @@ function Thumbnail({
   index: number;
 }) {
   const box = (
-    <span className="block aspect-video w-full overflow-hidden rounded-[clamp(4px,0.42vw,8px)] bg-[#4f4f4f] md:w-[clamp(120px,11.1vw,213px)]">
+    <span
+      data-reveal="photo"
+      className="block aspect-video w-full overflow-hidden rounded-[clamp(4px,0.42vw,8px)] bg-[#4f4f4f] md:w-[clamp(120px,11.1vw,213px)]"
+    >
       {video.thumb ? (
         <Image
           src={video.thumb}
@@ -89,7 +93,7 @@ export default function WatchSection() {
       className="relative bg-black pb-[clamp(60px,8.28vw,159px)]"
     >
       <div className="mx-auto w-full max-w-[1440px] px-5">
-        <h2 id="watch-heading" className="font-display course-display text-gold uppercase">
+        <h2 id="watch-heading" data-reveal className="font-display course-display text-gold uppercase">
           <span
             aria-hidden="true"
             className="font-script course-script block text-white normal-case"
@@ -102,9 +106,11 @@ export default function WatchSection() {
         </h2>
 
         <ul className="mt-[clamp(24px,2.34vw,45px)]">
-          {watchRows.map((row) => (
+          {watchRows.map((row, index) => (
             <li
               key={row.label}
+              data-reveal
+              style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
               className="group border-b border-gold/40 transition-colors duration-200 hover:bg-white/3"
             >
               <div className="flex flex-wrap items-center gap-x-[clamp(20px,3.13vw,60px)] gap-y-[clamp(16px,2.24vw,30px)] py-[clamp(28px,3.02vw,58px)] md:pr-[clamp(0px,6.2vw,119px)]">

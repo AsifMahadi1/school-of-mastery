@@ -270,6 +270,7 @@ export default function VideoStrip() {
       <div
         ref={viewportRef}
         onPointerDown={onPointerDown}
+        data-reveal
         className={`video-strip-viewport ${dragging ? "cursor-grabbing select-none" : "cursor-grab"}`}
       >
         <div

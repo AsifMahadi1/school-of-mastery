@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 
 /**
  * Section 3 — "Date, Time & Other Details" (id="#details").
@@ -36,6 +37,7 @@ export default function DetailsSection() {
         {/* Script + gold heading — above the panel, aligned with the chip grid */}
         <h2
           id="details-heading"
+          data-reveal
           className="font-display course-display mb-[clamp(26px,2.66vw,51px)] text-gold uppercase md:ml-[42.5%]"
         >
           <span
@@ -50,9 +52,15 @@ export default function DetailsSection() {
         </h2>
 
         {/* Panel */}
-        <div className="relative rounded-[clamp(24px,2.08vw,40px)] bg-panel px-5 pt-[clamp(36px,3.75vw,72px)] pb-[clamp(32px,3.23vw,62px)] md:pr-[clamp(24px,5.9vw,113px)] md:pl-[42.5%]">
+        <div
+          data-reveal
+          className="relative rounded-[clamp(24px,2.08vw,40px)] bg-panel px-5 pt-[clamp(36px,3.75vw,72px)] pb-[clamp(32px,3.23vw,62px)] md:pr-[clamp(24px,5.9vw,113px)] md:pl-[42.5%]"
+        >
           {/* Calendar photo: bottom-left, popping above the panel's top edge */}
-          <div className="mx-auto mb-[clamp(20px,2vw,38px)] w-[72%] max-w-[360px] md:absolute md:bottom-0 md:left-0 md:mb-0 md:w-[43.3%] md:max-w-none">
+          <div
+            data-reveal="photo"
+            className="mx-auto mb-[clamp(20px,2vw,38px)] w-[72%] max-w-[360px] [--reveal-delay:120ms] md:absolute md:bottom-0 md:left-0 md:mb-0 md:w-[43.3%] md:max-w-none"
+          >
             <Image
               src="/images/calendar.png"
               alt="Course calendar — January, classes run Sunday to Wednesday"
@@ -65,9 +73,11 @@ export default function DetailsSection() {
 
           {/* Chips + note */}
           <ul className="grid grid-cols-1 gap-y-[clamp(18px,1.56vw,30px)] md:grid-cols-2 md:gap-x-[clamp(16px,1.25vw,24px)]">
-            {details.map((item) => (
+            {details.map((item, index) => (
               <li
                 key={item.label}
+                data-reveal
+                style={{ "--reveal-delay": `${(index + 1) * 60}ms` } as CSSProperties}
                 className="flex h-[clamp(56px,3.6vw,69px)] items-center gap-[clamp(14px,1.46vw,28px)] rounded-full bg-white pr-4 pl-[clamp(5px,0.36vw,7px)]"
               >
                 <span className="grid size-[clamp(46px,2.97vw,57px)] shrink-0 place-items-center rounded-full bg-gold">

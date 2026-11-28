@@ -129,7 +129,10 @@ export default function FaqPanel() {
   };
 
   return (
-    <div className="faq-panel mt-[clamp(24px,2.45vw,47px)] bg-panel px-[clamp(20px,5.81vw,111.5px)] pt-[clamp(60px,7.92vw,152px)] pb-[clamp(60px,7.03vw,135px)]">
+    <div
+      data-reveal
+      className="faq-panel mt-[clamp(24px,2.45vw,47px)] bg-panel px-[clamp(20px,5.81vw,111.5px)] pt-[clamp(60px,7.92vw,152px)] pb-[clamp(60px,7.03vw,135px)]"
+    >
       <div className="faq-cols">
         {/* Question column — first in the DOM so on mobile it sits above the card. */}
         <div className="md:col-start-2 md:row-start-1">

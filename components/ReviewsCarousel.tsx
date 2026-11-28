@@ -127,7 +127,8 @@ export default function ReviewsCarousel() {
   return (
     <div
       ref={blockRef}
-      className="reviews-notch relative mx-auto w-full max-w-[1281px]"
+      data-reveal
+      className="reviews-notch relative mx-auto w-full max-w-[1281px] [--reveal-delay:120ms]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}

@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import FloatingContact from "@/components/FloatingContact";
+import ScrollReveal from "@/components/ScrollReveal";
 import Hero from "@/components/Hero";
 import VideoStrip from "@/components/sections/VideoStrip";
 import CourseSection from "@/components/sections/CourseSection";
@@ -16,6 +17,7 @@ export default function Home() {
     <>
       <Navbar />
       <FloatingContact />
+      <ScrollReveal />
       <main>
         <Hero />
         <VideoStrip />

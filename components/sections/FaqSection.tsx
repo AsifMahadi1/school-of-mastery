@@ -31,6 +31,7 @@ export default function FaqSection() {
       <div className="mx-auto w-full max-w-[1663px] px-5">
         <h2
           id="faq-heading"
+          data-reveal
           className="font-display section-display faq-inset text-gold uppercase"
         >
           <span

@@ -32,6 +32,7 @@ export default function CourseSection() {
         <div className="flex flex-col items-start gap-[clamp(24px,3vw,40px)] lg:flex-row lg:items-end lg:gap-[clamp(60px,6.77vw,130px)]">
           <h2
             id="course-heading"
+            data-reveal
             className="font-display course-display text-gold uppercase"
           >
             <span
@@ -47,7 +48,8 @@ export default function CourseSection() {
 
           <a
             href="#enroll"
-            className="font-body inline-flex h-[clamp(40px,2.55vw,49px)] shrink-0 items-center gap-[clamp(8px,0.63vw,12px)] rounded-full bg-white pr-[clamp(5px,0.42vw,8px)] pl-[clamp(16px,1.2vw,23px)] text-[clamp(15px,1.25vw,24px)] leading-none font-medium text-charcoal transition-transform duration-200 hover:-translate-y-0.5"
+            data-reveal
+            className="font-body inline-flex h-[clamp(40px,2.55vw,49px)] shrink-0 items-center gap-[clamp(8px,0.63vw,12px)] rounded-full bg-white pr-[clamp(5px,0.42vw,8px)] pl-[clamp(16px,1.2vw,23px)] text-[clamp(15px,1.25vw,24px)] leading-none font-medium text-charcoal transition-transform duration-200 [--reveal-delay:140ms] hover:-translate-y-0.5"
           >
             Get Started
             <span className="grid size-[clamp(30px,2.08vw,40px)] place-items-center rounded-full bg-gold">

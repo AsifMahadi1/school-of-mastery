@@ -17,7 +17,7 @@ export default function EnrollSection() {
     >
       <div className="mx-auto w-full max-w-[1440px] px-5">
         <div className="mx-auto w-full max-w-[928px]">
-          <h2 id="enroll-heading" className="font-display course-display text-gold uppercase">
+          <h2 id="enroll-heading" data-reveal className="font-display course-display text-gold uppercase">
             <span
               aria-hidden="true"
               className="-ml-[clamp(0px,4.06vw,78px)] block font-script text-[clamp(34px,3.39vw,65px)] leading-[1.1] text-white normal-case"
@@ -29,7 +29,7 @@ export default function EnrollSection() {
             LEVEL UP ENGLISH COURSE
           </h2>
 
-          <div className="mt-[clamp(30px,4.19vw,80px)]">
+          <div data-reveal className="mt-[clamp(30px,4.19vw,80px)] [--reveal-delay:120ms]">
             <EnrollForm />
           </div>
         </div>
