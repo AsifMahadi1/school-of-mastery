@@ -417,8 +417,10 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Video controls — same row as the pill on desktop, below it on mobile */}
-          <div className="flex items-center gap-[clamp(10px,1.3vw,25px)] lg:mb-[14px]">
+          {/* Video controls — same row as the pill on desktop, below it on mobile.
+              `.hero-controls` keeps them clear of the floating call/WhatsApp
+              buttons between lg and 1640px (see globals.css). */}
+          <div className="hero-controls flex items-center gap-[clamp(10px,1.3vw,25px)] lg:mb-[14px]">
             <button
               type="button"
               onClick={toggleMute}

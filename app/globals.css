@@ -88,6 +88,31 @@ button:focus-visible,
   }
 }
 
+/* ---- Hero video controls vs the floating call/WhatsApp buttons ---------
+ * The two round buttons are pinned to the hero's (full-bleed) right edge; the
+ * video controls row is pinned to the right edge of the max-1440px content
+ * container. Both bands grow with vw at different rates, so from lg up to
+ * ~1590px the controls would run underneath the buttons (measured at 1024,
+ * 1100, 1180, 1280, 1366, 1440, 1536: the track's right end sat 7-51px past
+ * the buttons' left edge). The clearance below is the buttons' offset + size
+ * (94px once both clamps top out at ~1920) minus however far the container's
+ * right edge already sits inside the viewport (20px of its own px-5 up to
+ * 1440px wide, then (vw-1440)/2 more), plus a 20px breathing gap. It is
+ * clamped at 0, so the controls stay flush with the content edge wherever the
+ * buttons are already clear of them — the mockup's 1920px layout is untouched.
+ */
+@media (min-width: 1024px) {
+  .hero-controls {
+    padding-right: max(
+      0px,
+      calc(
+        clamp(14px, 2.14vw, 41px) + clamp(38px, 2.76vw, 53px) + 20px -
+          max(20px, calc(50vw - 700px))
+      )
+    );
+  }
+}
+
 /* ---- Course section ("What to expect") -------------------------------
  * Heading: gold display lockup (mockup 1920px → 33px / 584px wide) with the
  * white Bastliga script word overlapping its top-left, shifted left of the
