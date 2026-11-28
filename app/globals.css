@@ -202,145 +202,115 @@ button:focus-visible,
   margin-left: clamp(-48px, -2.5vw, 0px);
 }
 
-/* Horizontally scrollable card row: native scroll + snap, no visible
- * scrollbar, first card flush with the content container's left edge and the
- * row CUT AT THE SAME CONTENT EDGE ON THE RIGHT (Boss: the page was bounded on
- * the left but open on the right). The bound is a margin, not a padding: an
- * overflowing scroller clips at its own border box, so right padding still let
- * the cards paint out to the viewport edge. Percentages (not vw) keep the
- * alignment correct when a scrollbar is shown; because the scroller's own left
- * edge is the content edge, no scroll-padding is needed for the snap. */
-.course-scroller {
-  display: block;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x proximity;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  margin-left: max(20px, calc((100% - 1440px) / 2 + 20px));
-  margin-right: max(20px, calc((100% - 1440px) / 2 + 20px));
-}
-
-.course-scroller::-webkit-scrollbar {
-  display: none;
-}
-
-.course-scroller li {
-  scroll-snap-align: start;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .course-scroller {
-    scroll-snap-type: none;
-  }
-}
-
-/* ------------------------------------------------------------------ *
- * Video strip (auto-scrolling YouTube row under the hero, #videos)
- * Geometry from the mockup at 1920: five 16:9 cards (335x188), 22px gaps,
- * the first card flush with the 1440px content column's left edge (260px);
- * the row is clipped by BOTH edges of that column (see .video-strip-viewport)
- * so the last visible card is cut like the course row's. Only the track is
- * animated (transform, linear, infinite) — the viewport clips, so the page
- * never gets a horizontal scrollbar.
+/* ---- Marquee mechanics (shared by the course card row and the video strip)
+ * One set of cards is measured, duplicated enough times to cover two
+ * viewports, and the track translates by exactly one set width per loop, so
+ * the seam is invisible and the row streams right→left forever — Boss: the last
+ * card arrives on screen and it starts over, i.e. back to the initial position,
+ * which inside the loop happens with no visible jump. Only the track animates
+ * (transform, linear, infinite) and the viewport clips, so the page never gets
+ * a horizontal scrollbar.
+ * Paused on hover, on keyboard focus inside the row, while dragged, and while
+ * off-screen (a data-paused flag set from JS); with prefers-reduced-motion
+ * there is no animation at all and the viewport becomes a native scroller.
  * ------------------------------------------------------------------ */
-.video-strip-viewport {
-  /* The same left AND right edges as the content column. The row used to run
-   * out to the viewport's right edge (the mockup cut the fifth card off
-   * there), which left the page bounded on the left but open on the right —
-   * Boss asked for the two sides to match, so the clip now ends on the content
-   * column's right edge, exactly where the course row's cards are cut.
-   * Margins (not padding) so the visible window IS the content column. */
-  margin-left: max(20px, calc((100% - 1440px) / 2 + 20px));
-  margin-right: max(20px, calc((100% - 1440px) / 2 + 20px));
+.marquee {
   overflow: hidden;
-  /* Both ends dissolve into the page's black instead of ending on a hard line
-   * (Boss: the two borders should read softer — cards fade out softly). The
-   * mask reveals the section's own black background, so nothing else is
-   * affected; the ramp is short enough to stay a fade, not a vignette.
-   * The strip scrolling IN from the right fades in over the same ramp. */
-  --strip-fade: clamp(26px, 3.4vw, 64px);
-  mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 var(--strip-fade),
-    #000 calc(100% - var(--strip-fade)),
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 var(--strip-fade),
-    #000 calc(100% - var(--strip-fade)),
-    transparent 100%
-  );
-  /* vertical page scrolling stays native; horizontal drags belong to the strip */
+  /* vertical page scrolling stays native; horizontal drags belong to the row */
   touch-action: pan-y;
 }
 
-.video-strip-track {
+.marquee-track {
   display: flex;
   width: max-content;
   will-change: transform;
 }
 
 /* Runs only once the set width is measured, so the loop distance is exact. */
-.video-strip-track[data-run="true"] {
-  animation: video-strip-scroll var(--strip-duration, 40s) linear infinite;
+.marquee-track[data-run="true"] {
+  animation: marquee-scroll var(--marquee-duration, 40s) linear infinite;
 }
 
-/* One full set per loop = the seam is invisible. */
-@keyframes video-strip-scroll {
+@keyframes marquee-scroll {
   from {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(calc(-1 * var(--strip-set-width, 0px)), 0, 0);
+    transform: translate3d(calc(-1 * var(--marquee-set-width, 0px)), 0, 0);
   }
 }
 
-.video-strip-set {
+.marquee-set {
   flex: none;
 }
 
-/* hover, keyboard focus inside the strip, touch/drag, off-screen, modal open */
-.video-strip:hover .video-strip-track,
-.video-strip:focus-within .video-strip-track,
-.video-strip[data-paused="true"] .video-strip-track {
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee[data-paused="true"] .marquee-track {
   animation-play-state: paused;
+}
+
+/* Both ends dissolve into the page's black instead of ending on a hard line
+ * (Boss: the two borders should read softer). The mask reveals the section's
+ * own background — the strip's black, the course section's black — so nothing
+ * else is affected, and a card entering from the right fades in over the ramp. */
+.marquee-fade {
+  --marquee-fade: clamp(26px, 3.4vw, 64px);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--marquee-fade),
+    #000 calc(100% - var(--marquee-fade)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--marquee-fade),
+    #000 calc(100% - var(--marquee-fade)),
+    transparent 100%
+  );
+}
+
+/* The content column's left AND right edges, applied as margins (not padding):
+ * an overflowing viewport clips at its own border box, so right padding would
+ * still let the cards paint out to the viewport edge (Boss asked for the two
+ * sides to match). Percentages, not vw, so the alignment stays correct when a
+ * scrollbar is shown. */
+.marquee-column {
+  margin-left: max(20px, calc((100% - 1440px) / 2 + 20px));
+  margin-right: max(20px, calc((100% - 1440px) / 2 + 20px));
 }
 
 /* prefers-reduced-motion: no marquee — a normal, swipeable scroll-snap row. */
 @media (prefers-reduced-motion: reduce) {
   /* same specificity as the [data-run] rule above, which sets the animation */
-  .video-strip-track,
-  .video-strip-track[data-run="true"] {
+  .marquee-track,
+  .marquee-track[data-run="true"] {
     animation: none;
     will-change: auto;
   }
 
   /* the duplicate sets exist only to make the loop seamless */
-  .video-strip-set[data-clone="true"] {
+  .marquee-set[data-clone="true"] {
     display: none;
   }
 
-  .video-strip-viewport {
+  .marquee {
     overflow-x: auto;
     overflow-y: hidden;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     touch-action: auto;
     scrollbar-width: none;
   }
 
-  .video-strip-viewport::-webkit-scrollbar {
+  .marquee::-webkit-scrollbar {
     display: none;
   }
 
-  .video-strip-set > li {
+  .marquee-set > li {
     scroll-snap-align: start;
   }
 }

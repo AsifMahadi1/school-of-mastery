@@ -256,28 +256,28 @@ export default function VideoStrip() {
   );
 
   const trackStyle = {
-    "--strip-set-width": `${setWidth}px`,
-    "--strip-duration": `${duration}s`,
+    "--marquee-set-width": `${setWidth}px`,
+    "--marquee-duration": `${duration}s`,
   } as CSSProperties;
 
   return (
     <section
       id="videos"
       aria-label="Videos"
-      data-paused={paused ? "true" : undefined}
       className="video-strip relative overflow-hidden bg-black pb-[clamp(40px,2.5vw,48px)]"
     >
       <div
         ref={viewportRef}
         onPointerDown={onPointerDown}
         data-reveal
-        className={`video-strip-viewport ${dragging ? "cursor-grabbing select-none" : "cursor-grab"}`}
+        data-paused={paused ? "true" : undefined}
+        className={`marquee marquee-column marquee-fade ${dragging ? "cursor-grabbing select-none" : "cursor-grab"}`}
       >
         <div
           ref={trackRef}
           data-run={setWidth > 0 ? "true" : undefined}
           style={trackStyle}
-          className="video-strip-track"
+          className="marquee-track"
         >
           <div
             className={`flex ${CARD_GAP}`}
@@ -294,7 +294,7 @@ export default function VideoStrip() {
                   data-set
                   data-clone={clone ? "true" : undefined}
                   aria-hidden={clone ? true : undefined}
-                  className={`video-strip-set flex ${CARD_GAP}`}
+                  className={`marquee-set flex ${CARD_GAP}`}
                 >
                   {videos.map((item, index) => (
                     <li key={item.id} className={CARD_WIDTH}>
