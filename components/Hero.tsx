@@ -358,38 +358,6 @@ export default function Hero() {
         />
       </div>
 
-      {/* Floating side buttons (right edge, lower-middle of the hero) */}
-      <div className="absolute right-[clamp(14px,2.14vw,41px)] bottom-[45%] z-30 flex flex-col items-center gap-[clamp(8px,0.94vw,18px)] md:bottom-[clamp(64px,5.42vw,104px)]">
-        <a
-          href={siteConfig.phoneHref}
-          aria-label={`Call ${siteConfig.phone}`}
-          className="grid size-[clamp(38px,2.76vw,53px)] place-items-center rounded-full bg-gold transition-transform duration-200 hover:scale-105"
-        >
-          <Image
-            src="/icons/phone-call.png"
-            alt=""
-            width={512}
-            height={512}
-            className="h-[71%] w-[71%] object-contain"
-          />
-        </a>
-        <a
-          href={siteConfig.whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
-          className="grid size-[clamp(38px,2.76vw,53px)] place-items-center rounded-full bg-white transition-transform duration-200 hover:scale-105"
-        >
-          <Image
-            src="/icons/whatsapp.png"
-            alt=""
-            width={512}
-            height={512}
-            className="h-[64%] w-[64%] object-contain"
-          />
-        </a>
-      </div>
-
       {/* Content */}
       <div className="relative z-20 mx-auto flex h-full w-full max-w-[1440px] flex-col justify-end px-5 pb-[clamp(56px,8.6vw,93px)]">
         <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-0">

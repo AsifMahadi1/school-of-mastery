@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import FloatingContact from "@/components/FloatingContact";
 import Hero from "@/components/Hero";
 import VideoStrip from "@/components/sections/VideoStrip";
 import CourseSection from "@/components/sections/CourseSection";
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <FloatingContact />
       <main>
         <Hero />
         <VideoStrip />

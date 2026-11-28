@@ -89,19 +89,21 @@ button:focus-visible,
 }
 
 /* ---- Hero video controls vs the floating call/WhatsApp buttons ---------
- * The two round buttons are pinned to the hero's (full-bleed) right edge; the
+ * The pair is `fixed` to the viewport's right edge (bottom-right corner), the
  * video controls row is pinned to the right edge of the max-1440px content
- * container. Both bands grow with vw at different rates, so from lg up to
- * ~1590px the controls would run underneath the buttons (measured at 1024,
- * 1100, 1180, 1280, 1366, 1440, 1536: the track's right end sat 7-51px past
- * the buttons' left edge). The clearance below is the buttons' offset + size
- * (94px once both clamps top out at ~1920) minus however far the container's
- * right edge already sits inside the viewport (20px of its own px-5 up to
- * 1440px wide, then (vw-1440)/2 more), plus a 20px breathing gap. It is
- * clamped at 0, so the controls stay flush with the content edge wherever the
- * buttons are already clear of them — the mockup's 1920px layout is untouched.
+ * container. Their horizontal bands overlap from lg up to ~1600px (the pair
+ * keeps 94px of the viewport's right edge once both clamps top out; the
+ * container's right edge is only 20px in until it reaches 1440px and then
+ * moves in by (vw-1440)/2). They only meet VERTICALLY when the hero's control
+ * row (≈127px above the hero's bottom edge) rises into the pair's band
+ * (bottom offset + 2 buttons ≈ 157px), i.e. on short viewports — the hero is
+ * capped at min-height 560px, so below ~660px tall a 1024-1600px window hits
+ * it at the top of the page. So: on a short-and-narrow window the controls get
+ * the pair's whole width band as clearance (clamped at 0, plus the container's
+ * own 20px px-5, leaving ≥20px), everywhere else they stay flush with the
+ * content edge exactly as the mockup draws them.
  */
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (max-height: 660px) {
   .hero-controls {
     padding-right: max(
       0px,
