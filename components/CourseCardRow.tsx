@@ -8,8 +8,9 @@ import { courseCards } from "@/lib/courseCards";
  * Horizontally scrollable card row.
  * - native touch/trackpad scrolling + scroll-snap (CSS, see .course-scroller)
  * - mouse drag-to-scroll
- * - the row bleeds to the right edge of the viewport so the last card is
- *   visibly cut off, hinting at more content
+ * - the row is cut at the content column's right edge (and flush with its left
+ *   edge), so the last card is visibly cut off without running to the viewport
+ *   edge — see .course-scroller
  */
 export default function CourseCardRow() {
   const scrollerRef = useRef<HTMLDivElement>(null);
