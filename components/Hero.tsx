@@ -305,17 +305,23 @@ export default function Hero() {
 
   const pct = duration > 0 ? Math.min(100, Math.max(0, (progress / duration) * 100)) : 0;
 
-  /* Height: 82.3svh, not 100svh. In the mockups the hero frame's bottom third
+  /* Height: 86svh, not 100svh. In the mockups the hero frame's bottom third
    * belongs to the black gap + the video strip that follows it: hero.png puts
    * the strip's top edge at 1080/1313 of the first screen (= 82.3%), right
    * below the hero content (whose 93px bottom padding then reads as the gap
    * between the tagline pill and the strip, exactly as drawn). At 100svh the
-   * strip would start below the fold instead of inside it. */
+   * strip would start below the fold instead of inside it.
+   *
+   * 82.3svh → 86svh is Boss's later instruction: the hero's headline lockup
+   * AND the strip below it both sit a little too high on the first screen, and
+   * this single number moves the whole bottom-anchored hero block plus the
+   * strip edge down together (the strip starts at the hero's bottom edge, so
+   * the 93px pill-to-strip gap is preserved). Tune THIS value to nudge both. */
   return (
     <section
       id="welcome"
       ref={sectionRef}
-      className="relative isolate h-[82.3svh] min-h-[560px] w-full overflow-hidden bg-black"
+      className="relative isolate h-[86svh] min-h-[560px] w-full overflow-hidden bg-black"
     >
       {/* Background video (design is black & white → CSS grayscale) */}
       <video
