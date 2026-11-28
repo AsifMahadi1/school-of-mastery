@@ -384,7 +384,7 @@ export default function Hero() {
               OF MASTERY
             </h1>
             <div
-              data-reveal
+              data-reveal="pop"
               className="mt-[clamp(4px,0.42vw,8px)] flex w-full min-h-[clamp(46px,3.07vw,59px)] items-center justify-center gap-[clamp(10px,1.35vw,26px)] rounded-full bg-gold px-4 py-2 [--reveal-delay:180ms] lg:h-[clamp(46px,3.07vw,59px)] lg:py-0"
             >
               <span className="font-body text-center text-[clamp(15px,1.82vw,35px)] leading-tight font-medium text-charcoal">

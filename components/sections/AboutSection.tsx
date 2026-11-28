@@ -45,7 +45,7 @@ export default function AboutSection() {
         </h2>
 
         <div
-          data-reveal
+          data-reveal="panel"
           className="relative mt-[clamp(24px,2.14vw,41px)] rounded-[clamp(24px,2.08vw,40px)] bg-panel px-5 pt-[clamp(20px,2.24vw,43px)] pb-[clamp(60px,7.76vw,149px)] md:pr-[8.2%] md:pl-[42.4%]"
         >
           {/* Instructor photo: stands on the card's bottom, head over the top edge. */}

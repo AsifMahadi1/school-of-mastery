@@ -51,15 +51,20 @@ body {
 
 /* ------------------------------------------------------------------ *
  * Scroll reveal (see components/ScrollReveal.tsx)
- * Elements with `data-reveal` sit slightly low + invisible until the observer
- * marks them `data-shown="true"`, then transition in. Only opacity and
- * transform animate — both compositor-only — so the reveal stays at 60fps
- * while the page is being scrolled quickly. Per-element tuning:
- *   --reveal-y      travel distance        (default 26px)
- *   --reveal-scale  starting scale         (default 1)
- *   --reveal-delay  stagger offset         (default 0ms)
- * `data-reveal="photo"` is the gentler, slower variant used on Boss's
- * photographs: a small zoom-out settle instead of the plain rise.
+ * Elements with `data-reveal` transition in when they approach the viewport.
+ * Only opacity and transform animate — both compositor-only — so the reveal
+ * stays at 60fps while the page is being scrolled quickly.
+ *
+ * FOUR MOVEMENTS (the value of `data-reveal` picks one; no value = "rise"):
+ *   rise   (default)  rises 26px from below — headings, card rows, footer
+ *   photo             drifts DOWN from above (-30px) with a gentle zoom
+ *                     settle — Boss: 'স্যারের ছবি হালকা করে উপর থেকে নিচের দিকে
+ *                     মুভ করবে'. Used on his photographs.
+ *   panel             a large panel: a hair of travel + a 0.985→1 scale, so a
+ *                     big light block settles instead of sliding
+ *   pop               small pills/chips: pure fade + 0.94→1 scale, no travel
+ * Per-element tuning: --reveal-y (travel) --reveal-scale (start scale)
+ *                     --reveal-delay (stagger) --reveal-move / --reveal-fade
  * ------------------------------------------------------------------ */
 [data-reveal] {
   opacity: 0;
@@ -80,13 +85,30 @@ body {
   will-change: auto;
 }
 
+/* Photographs: from above, settling down, with a soft zoom-out. */
 [data-reveal="photo"] {
+  --reveal-y: -30px;
+  --reveal-scale: 1.035;
+  --reveal-move: 1000ms;
+  --reveal-fade: 820ms;
+  transform-origin: 50% 40%;
+}
+
+/* Large panels (light cards): barely any travel, a whisper of scale. */
+[data-reveal="panel"] {
   --reveal-y: 18px;
-  --reveal-scale: 1.045;
-  --reveal-move: 1050ms;
-  --reveal-fade: 780ms;
-  /* a photo that is already clipped/rounded must keep its own overflow rule */
-  transform-origin: 50% 60%;
+  --reveal-scale: 0.985;
+  --reveal-move: 950ms;
+  --reveal-fade: 700ms;
+}
+
+/* Small pills, chips, buttons: no travel, just a settle into place. */
+[data-reveal="pop"] {
+  --reveal-y: 0px;
+  --reveal-scale: 0.94;
+  --reveal-move: 620ms;
+  --reveal-fade: 520ms;
+  transform-origin: 50% 50%;
 }
 
 @media (prefers-reduced-motion: reduce) {

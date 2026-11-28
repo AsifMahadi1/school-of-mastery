@@ -48,7 +48,7 @@ export default function CourseSection() {
 
           <a
             href="#enroll"
-            data-reveal
+            data-reveal="pop"
             className="font-body inline-flex h-[clamp(40px,2.55vw,49px)] shrink-0 items-center gap-[clamp(8px,0.63vw,12px)] rounded-full bg-white pr-[clamp(5px,0.42vw,8px)] pl-[clamp(16px,1.2vw,23px)] text-[clamp(15px,1.25vw,24px)] leading-none font-medium text-charcoal transition-transform duration-200 [--reveal-delay:140ms] hover:-translate-y-0.5"
           >
             Get Started

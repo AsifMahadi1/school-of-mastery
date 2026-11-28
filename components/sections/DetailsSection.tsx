@@ -53,7 +53,7 @@ export default function DetailsSection() {
 
         {/* Panel */}
         <div
-          data-reveal
+          data-reveal="panel"
           className="relative rounded-[clamp(24px,2.08vw,40px)] bg-panel px-5 pt-[clamp(36px,3.75vw,72px)] pb-[clamp(32px,3.23vw,62px)] md:pr-[clamp(24px,5.9vw,113px)] md:pl-[42.5%]"
         >
           {/* Calendar photo: bottom-left, popping above the panel's top edge */}
@@ -76,7 +76,7 @@ export default function DetailsSection() {
             {details.map((item, index) => (
               <li
                 key={item.label}
-                data-reveal
+                data-reveal="pop"
                 style={{ "--reveal-delay": `${(index + 1) * 60}ms` } as CSSProperties}
                 className="flex h-[clamp(56px,3.6vw,69px)] items-center gap-[clamp(14px,1.46vw,28px)] rounded-full bg-white pr-4 pl-[clamp(5px,0.36vw,7px)]"
               >

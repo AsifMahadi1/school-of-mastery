@@ -130,7 +130,7 @@ export default function FaqPanel() {
 
   return (
     <div
-      data-reveal
+      data-reveal="panel"
       className="faq-panel mt-[clamp(24px,2.45vw,47px)] bg-panel px-[clamp(20px,5.81vw,111.5px)] pt-[clamp(60px,7.92vw,152px)] pb-[clamp(60px,7.03vw,135px)]"
     >
       <div className="faq-cols">

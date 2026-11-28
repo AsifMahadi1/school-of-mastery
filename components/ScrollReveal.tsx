@@ -79,9 +79,15 @@ export default function ScrollReveal() {
         }
       },
       /* threshold 0 (not a ratio): an element taller than the viewport can
-       * never reach a meaningful ratio, and the bottom margin is what makes
-       * the reveal start just before the element is fully on screen. */
-      { threshold: 0, rootMargin: "0px 0px -12% 0px" },
+       * never reach a meaningful ratio. The POSITIVE bottom margin expands the
+       * root, so a target starts animating while it is still just below the
+       * fold: it is already mid-transition by the time its first pixel shows on
+       * screen. That is the whole point — with a negative margin a target that
+       * was already half visible on load (the marquee on a phone) stayed
+       * invisible until the first extra scroll, leaving an empty slot
+       * (Boss's report). Anything on screen — even partially — now counts as
+       * intersecting at the observer's first callback. */
+      { threshold: 0, rootMargin: "0px 0px 14% 0px" },
     );
 
     [...targets, ...groups].forEach((el) => observer.observe(el));
