@@ -4,8 +4,26 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/siteConfig";
 
-/** Spotlight geometry (design values at the 1920px design width). */
-const SPOT_RADIUS = 170;
+/**
+ * Spotlight geometry (design values at the 1920px design width).
+ *
+ * The radius is the mockup's 170px at 1920 and scales DOWN with the viewport,
+ * because the hero image is `object-cover`: on a narrow screen the same circle
+ * covers a much larger slice of the picture, so a fixed 170px reads as an
+ * oversized blob on a phone and as a small dot on a wide monitor. The clamp
+ * floor keeps it a comfortable size to move a finger over on small devices
+ * (Boss: 'ছোট ডিভাইসে ছোট এবং বড় ডিভাইসের বড়'). Recomputed on every pointer
+ * move, so a window resize is picked up without any listener.
+ */
+const SPOT_RADIUS_MAX = 170;
+const SPOT_RADIUS_MIN = 84;
+const SPOT_RADIUS_VW = 170 / 1920;
+
+function spotRadius(): number {
+  const vw = typeof window === "undefined" ? 1920 : window.innerWidth;
+  return Math.round(Math.min(SPOT_RADIUS_MAX, Math.max(SPOT_RADIUS_MIN, vw * SPOT_RADIUS_VW)));
+}
+
 const SPOT_LERP = 0.18;
 
 const HERO_VIDEO = "/videos/sim-racing.mp4";
@@ -211,7 +229,7 @@ export default function Hero() {
       }
       state.tx = x;
       state.ty = y;
-      state.tr = SPOT_RADIUS;
+      state.tr = spotRadius();
       kick();
     };
 
@@ -247,7 +265,7 @@ export default function Hero() {
       }
       state.tx = x;
       state.ty = y;
-      state.tr = SPOT_RADIUS;
+      state.tr = spotRadius();
       kick();
     };
 
