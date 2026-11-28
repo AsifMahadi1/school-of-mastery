@@ -13,13 +13,20 @@ import CourseCardRow from "@/components/CourseCardRow";
  * owns that row (#videos, components/sections/VideoStrip.tsx). This section
  * follows the strip in normal flow and overlaps nothing, so the grey row
  * exists exactly once on the page.
+ *
+ * NOTE ON THE TOP PADDING: the mockup's gap between the strip's cards and this
+ * section's first ink is 113px at 1920 (template y1268 → 1381, measured), but
+ * the strip's own bottom padding AND this padding both applied, which rendered
+ * 348px — a gap ~3x the design, which Boss flagged ('গ্যাপ তুলনামূলক একটু
+ * বেশি'). The pair is now solved to land back on the mockup: strip pb 48px +
+ * this padding (clamp max 88px) − the script's 23px negative leading = 113px.
  */
 export default function CourseSection() {
   return (
     <section
       id="course"
       aria-labelledby="course-heading"
-      className="relative bg-black pt-[clamp(80px,16.8vw,323px)] pb-[clamp(70px,11.2vw,215px)]"
+      className="relative bg-black pt-[clamp(44px,4.6vw,88px)] pb-[clamp(70px,11.2vw,215px)]"
     >
       <div className="mx-auto w-full max-w-[1440px] px-5">
         <div className="flex flex-col items-start gap-[clamp(24px,3vw,40px)] lg:flex-row lg:items-end lg:gap-[clamp(60px,6.77vw,130px)]">
