@@ -251,9 +251,10 @@ button:focus-visible,
 }
 
 /* Both ends dissolve into the page's black instead of ending on a hard line
- * (Boss: the two borders should read softer). The mask reveals the section's
- * own background — the strip's black, the course section's black — so nothing
- * else is affected, and a card entering from the right fades in over the ramp. */
+ * (Boss: the two borders should read softer). Used by the VIDEO STRIP only —
+ * for the course card row Boss wanted hard edges ('এইটার ক্ষেত্রে soft fade
+ * দেওয়ার দরকার নেই'), so that row uses `.marquee marquee-column` without this
+ * class. The mask reveals the section's own black, so nothing else is affected. */
 .marquee-fade {
   --marquee-fade: clamp(26px, 3.4vw, 64px);
   mask-image: linear-gradient(
