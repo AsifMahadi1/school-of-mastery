@@ -185,6 +185,26 @@ button:focus-visible,
   margin-left: max(20px, calc((100% - 1440px) / 2 + 20px));
   margin-right: max(20px, calc((100% - 1440px) / 2 + 20px));
   overflow: hidden;
+  /* Both ends dissolve into the page's black instead of ending on a hard line
+   * (Boss: the two borders should read softer — cards fade out softly). The
+   * mask reveals the section's own black background, so nothing else is
+   * affected; the ramp is short enough to stay a fade, not a vignette.
+   * The strip scrolling IN from the right fades in over the same ramp. */
+  --strip-fade: clamp(26px, 3.4vw, 64px);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--strip-fade),
+    #000 calc(100% - var(--strip-fade)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--strip-fade),
+    #000 calc(100% - var(--strip-fade)),
+    transparent 100%
+  );
   /* vertical page scrolling stays native; horizontal drags belong to the strip */
   touch-action: pan-y;
 }
