@@ -11,7 +11,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  /* Subtle dark blurred background once the page leaves the top. */
+  /* Below the desktop breakpoint (xl) a subtle dark blurred bar keeps the
+     links readable while scrolling. Desktop stays fully transparent at every
+     scroll position — only the centre pill keeps its own blur. */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -53,7 +55,9 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled || menuOpen ? "bg-black/60 backdrop-blur-md" : "bg-transparent"
+        scrolled || menuOpen
+          ? "max-xl:bg-black/60 max-xl:backdrop-blur-md"
+          : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 px-5 py-3 pt-[clamp(14px,3.4vw,66px)] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:pb-0">
